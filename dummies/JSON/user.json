@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "name": "admin",
+    "email": "admin@gmail.com",
+    "password": "admin",
+    "gender": "male",
+    "birthdate": "2021-08-12",
+    "avatar": "blank.png",
+    "type": "admin"
+  }
+]
