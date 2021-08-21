@@ -1,4 +1,4 @@
-const { User } = require("../../models");
+const { User, Talent, Talents_Image } = require("../../models");
 const { decrypter } = require("../../helpers/bcrypt");
 const { tokenGenerator } = require("../../helpers/jwt");
 
@@ -98,6 +98,30 @@ class ApiController {
         status: 200,
         message: "User data has been updated!",
         user: newUserData,
+      });
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  }
+
+  static async showAllTalents(req, res) {
+    try {
+      const talents = await Talent.findAll({
+        include: [
+          {
+            model: Talents_Image,
+            // where: { primary: true },
+            attributes: ["fileName"],
+          },
+        ],
+        order: [["id", "ASC"]],
+      });
+      res.status(200).json({
+        status: 200,
+        message: "All talents displayed successfully!",
+        data: {
+          talents,
+        },
       });
     } catch (err) {
       res.status(500).json(err);

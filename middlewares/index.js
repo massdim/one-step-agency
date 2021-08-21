@@ -1,3 +1,4 @@
+const { adminAuth } = require("./admin");
 const { userAuth } = require("./user");
 
-module.exports = { userAuth };
+module.exports = { adminAuth, userAuth };
