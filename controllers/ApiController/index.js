@@ -105,6 +105,11 @@ class ApiController {
   }
 
   static async showAllTalents(req, res) {
+    let { search, sort, page } = req.params;
+
+    if (!search) search = " ";
+    if (!page) page = 1;
+
     try {
       const talents = await Talent.findAll({
         include: [

@@ -8,6 +8,6 @@ route.post("/login", ApiController.login);
 
 route.put("/account/update", userAuth, ApiController.updateProfile);
 
-route.get("/talents", ApiController.showAllTalents);
+route.get("/talents/:search?/:sort?/:page?", ApiController.showAllTalents);
 
 module.exports = route;
