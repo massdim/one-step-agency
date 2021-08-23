@@ -20,6 +20,22 @@ module.exports = {
       primary: "#C83B52",
       secondary: "#59bfff",
     }),
+    extend: {
+      spacing: {
+        13: "3.05rem",
+        72: "18rem",
+        84: "21rem",
+        96: "24rem",
+        98: "27rem",
+        100: "30rem",
+        102: "33rem",
+        104: "36rem",
+        106: "39rem",
+        108: "42rem",
+        110: "45rem",
+        115: "60rem",
+      },
+    },
   },
   variants: {
     extend: {},

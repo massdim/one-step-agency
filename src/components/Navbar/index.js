@@ -1,27 +1,32 @@
 import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { setLogout } from "../../redux/action/account";
 import Badge from "@material-ui/core/Badge";
 import NotificationsIcon from "@material-ui/icons/Notifications";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
-  const [openNotification, setOpenNotification] = useState(false);
-  const [openDropdown, setOpenDropdown] = useState({
-    account: false,
-    notification: false,
-  });
-
+  const dispatch = useDispatch();
+  const openDropdown = useSelector((state) => state.general.openDropdown);
   const [count, setCount] = useState(0);
   const [invisible, setInvisible] = useState(true);
 
   const handleDropdown = (val) => {
     if (val === "account") {
-      setOpenDropdown({
-        account: !openDropdown.account,
-        notification: false,
+      dispatch({
+        type: "SET_OPEN_DROPDOWN",
+        data: {
+          account: !openDropdown.account,
+          notification: false,
+        },
       });
     } else {
-      setOpenDropdown({
-        account: false,
-        notification: !openDropdown.notification,
+      dispatch({
+        type: "SET_OPEN_DROPDOWN",
+        data: {
+          account: false,
+          notification: !openDropdown.notification,
+        },
       });
     }
   };
@@ -32,31 +37,26 @@ const Navbar = () => {
     // setInvisible(!invisible);
   };
 
-  useEffect(() => {
-    // setInvisible(count > 0 ? false : true);
-    return () => {
-      // Anything in here is fired on component unmount.
-      setOpenDropdown({
-        account: false,
-        notification: false,
-      });
-    };
-  }, []);
+  const handleLogout = () => {
+    dispatch(setLogout());
+  };
+
+  useEffect(() => {}, []);
 
   return (
-    <nav class="bg-white shadow-lg">
-      <div class="mx-10">
-        <div class="flex justify-between">
+    <nav className="bg-white shadow-lg">
+      <div className="mx-10">
+        <div className="flex justify-between">
           <div>
             <a
               href="#"
-              class="flex items-center py-4 px-2 text-3xl text-dark font-semibold"
+              className="flex items-center py-4 px-2 text-3xl text-dark font-semibold"
             >
               FIRSTEP
-              {/* <img src="logo.png" alt="Logo" class="h-8 w-8 mr-2" /> */}
+              {/* <img src="logo.png" alt="Logo" className="h-8 w-8 mr-2" /> */}
             </a>
           </div>
-          <div class="flex items-center">
+          <div className="flex items-center">
             <>
               <div
                 className="mr-6 cursor-pointer relative inline-block"
@@ -74,25 +74,25 @@ const Navbar = () => {
                 <div
                   className={`absolute ${
                     openDropdown.notification ? "block" : "hidden"
-                  } top-12 right-0 w-80 h-60 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 p-0`}
+                  } top-13 right-0 w-80 h-60 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 p-0 z-10`}
                 >
-                  <div className="relative h-full">
-                    <div className="ml-2 h-full overflow-y-auto">
+                  <div className="h-full">
+                    <div className="pl-2 h-full overflow-y-auto overflow-x-hidden">
                       <a
                         href="#"
-                        class="flex items-center px-2 py-3 border-b hover:bg-gray-100 -mx-2"
+                        className="flex items-center px-2 py-3 border-b hover:bg-gray-100 -mx-2"
                       >
                         <img
-                          class="w-10 h-10 object-cover mx-1"
+                          className="w-10 h-10 object-cover mx-1"
                           src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80"
                           alt="avatar"
                         />
-                        <p class="text-gray-600 text-sm mx-2">
-                          <span class="font-bold" href="#">
+                        <p className="text-gray-600 text-sm mx-2">
+                          <span className="font-bold" href="#">
                             Sara Salah
                           </span>{" "}
                           replied on the{" "}
-                          <span class="font-bold text-blue-500" href="#">
+                          <span className="font-bold text-blue-500" href="#">
                             Upload Image
                           </span>{" "}
                           artical . 2m
@@ -100,74 +100,33 @@ const Navbar = () => {
                       </a>
                       <a
                         href="#"
-                        class="flex items-center px-2 py-3 border-b hover:bg-gray-100 -mx-2"
+                        className="flex items-center px-2 py-3 border-b hover:bg-gray-100 -mx-2"
                       >
                         <img
-                          class="w-10 h-10 object-cover mx-1"
+                          className="w-10 h-10 object-cover mx-1"
                           src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80"
                           alt="avatar"
                         />
-                        <p class="text-gray-600 text-sm mx-2">
-                          <span class="font-bold" href="#">
+                        <p className="text-gray-600 text-sm mx-2">
+                          <span className="font-bold" href="#">
                             Sara Salah
                           </span>{" "}
                           replied on the{" "}
-                          <span class="font-bold text-blue-500" href="#">
-                            Upload Image
-                          </span>{" "}
-                          artical . 2m
-                        </p>
-                      </a>
-                      <a
-                        href="#"
-                        class="flex items-center px-2 py-3 border-b hover:bg-gray-100 -mx-2"
-                      >
-                        <img
-                          class="w-10 h-10 object-cover mx-1"
-                          src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80"
-                          alt="avatar"
-                        />
-                        <p class="text-gray-600 text-sm mx-2">
-                          <span class="font-bold" href="#">
-                            Sara Salah
-                          </span>{" "}
-                          replied on the{" "}
-                          <span class="font-bold text-blue-500" href="#">
-                            Upload Image
-                          </span>{" "}
-                          artical . 2m
-                        </p>
-                      </a>
-                      <a
-                        href="#"
-                        class="flex items-center px-2 py-3 border-b hover:bg-gray-100 -mx-2"
-                      >
-                        <img
-                          class="w-10 h-10 object-cover mx-1"
-                          src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80"
-                          alt="avatar"
-                        />
-                        <p class="text-gray-600 text-sm mx-2">
-                          <span class="font-bold" href="#">
-                            Sara Salah
-                          </span>{" "}
-                          replied on the{" "}
-                          <span class="font-bold text-blue-500" href="#">
+                          <span className="font-bold text-blue-500" href="#">
                             Upload Image
                           </span>{" "}
                           artical . 2m
                         </p>
                       </a>
                     </div>
-
-                    <div className="absolute bottom-0 w-full">
-                      <a
-                        href="#"
-                        class="block bg-gray-800 text-white text-center font-bold py-2   rounded-b-md"
-                      >
-                        See all notifications
-                      </a>
-                    </div>
+                  </div>
+                  <div className="w-full">
+                    <a
+                      href="#"
+                      className="block bg-gray-800 text-white text-center font-bold py-2   rounded-b-md"
+                    >
+                      See all notifications
+                    </a>
                   </div>
                 </div>
               </div>
@@ -177,9 +136,9 @@ const Navbar = () => {
               className="relative inline-block "
               onClick={() => handleDropdown("account")}
             >
-              <button type="button" class="flex w-8 h-8">
+              <button type="button" className="flex w-8 h-8">
                 <img
-                  class="h-full w-full object-cover rounded-full"
+                  className="h-full w-full object-cover rounded-full"
                   src="https://i.pinimg.com/474x/11/c4/2c/11c42ce581ec0f925813db45985bfbd7.jpg"
                   alt="avatar"
                 />
@@ -187,17 +146,18 @@ const Navbar = () => {
               <div
                 className={`absolute ${
                   openDropdown.account ? "block" : "hidden"
-                } top-12 right-0 w-56 h-auto rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 p-3 mt-1`}
+                } top-12 right-0 w-56 h-auto rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 p-3 mt-1 z-10`}
               >
-                <a
-                  href="#"
-                  class="text-gray-700 hover:text-primary block px-4 py-2 text-md"
+                <Link
+                  to="/account"
+                  className="text-gray-700 hover:text-primary block px-4 py-2 text-md"
                 >
                   Account settings
-                </a>
+                </Link>
                 <a
                   href="#"
-                  class="text-gray-700 hover:text-primary block px-4 py-2 text-md"
+                  className="text-gray-700 hover:text-primary block px-4 py-2 text-md"
+                  onClick={() => handleLogout()}
                 >
                   Sign Out
                 </a>
